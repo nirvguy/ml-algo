@@ -42,7 +42,7 @@ class KMeans:
 
     def _group_in_closest_clusters(self, data):
         """ Group every point of data in the closest cluster
- 
+
         Returns
         -------
         bool
