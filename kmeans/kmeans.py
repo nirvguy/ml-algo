@@ -1,11 +1,14 @@
 import numpy as np
-import init
+from . import init
 
 def euclidean_distance(x, y):
     return np.linalg.norm(x-y)
 
 class KMeans:
     """ K-means clustering """
+
+    NOT_FITTED_ERROR_MESSAGE = 'Centroids not yet fitted to any data. Call to fit first.'
+
     def __init__(self, k, distance=euclidean_distance, init=init.forgy_initialization):
         """ Constructor
 
@@ -100,6 +103,9 @@ class KMeans:
         list
             Cluster index between 0 and K-1 per data point
         """
+        if len(self._centroids) == 0:
+            raise Exception(self.NOT_FITTED_ERROR_MESSAGE)
+
         results = []
         for x in X:
             closest_idx = self.closest_cluster(x)
