@@ -63,7 +63,7 @@ class SGDTrainer(LinearRegressionTrainer):
         m = X.shape[0]
         weights = self._model.weights
         for epoch in range(epochs):
-            delta_W = (1/m) * np.matmul(X.T, np.matmul(X, weights) - Y) - l2 * weights
+            delta_W = (1/m) * np.matmul(X.T, np.matmul(X, weights) - Y) + l2 * weights
             weights -= eps * delta_W
         return weights
 
