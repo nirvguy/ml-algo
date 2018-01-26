@@ -37,6 +37,36 @@ class MLSTrainer(LinearRegressionTrainer):
         weights = np.matmul(np.matmul(P, X.T), Y)
         return weights
 
+class SGDTrainer(LinearRegressionTrainer):
+    """ Trainer of LinearRegression using Step Gradient Descent method """
+
+    def step(self, X, Y, eps=0.01, epochs=10, l2=0.1):
+        """ Perform a learning step
+
+        Parameters
+        ----------
+            X : numpy.ndarray
+                input dataset of shape BATCH_SIZE x n_inputs
+            Y : numpy.ndarray
+                outputs dataset of shape BATCH_SIZE x n_outputs
+            eps : float
+                Learning rate
+            epochs : int
+                Number of epochs to train
+            l2 : float
+                L2 regularizer penalty factor
+
+        Returns
+        -------
+            Weights to update
+        """
+        m = X.shape[0]
+        weights = self._model.weights
+        for epoch in range(epochs):
+            delta_W = 1/(2*m) * np.matmul(np.matmul(X.T, X), weights) - np.matmul(X.T, Y) + l2 * weights
+            weights -= eps * delta_W
+        return weights
+
 class LinearRegression:
     """ Linear Regression Model"""
 
