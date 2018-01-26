@@ -85,7 +85,7 @@ class LinearRegression:
         self._n_inputs = n_inputs
         self._trainer = trainer(self)
         # Encode bias parameter in one extra row in weights matrix
-        self._weights = np.random.uniform(size=(n_inputs + 1, n_outputs))
+        self._weights = np.random.normal(0,1,size=(n_inputs + 1, n_outputs))
 
     @property
     def weights(self):
